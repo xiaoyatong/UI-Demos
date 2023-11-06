@@ -1,0 +1,53 @@
+.shadow-tabs {
+  .nut-tabs__titles {
+    height: 0;
+  }
+}
+
+.nut-menu .nut-menu__bar {
+  box-shadow: unset;
+}
+
+.nut-tabs__titles {
+  height: 56px;
+}
+
+.nut-tabpane {
+  padding: 0;
+
+  .nut-cell-group__wrap {
+    margin-top: 20px;
+  }
+}
+
+.nut-tabs__titles-item.active {
+  background: white;
+  border-radius: 6px 6px 0 0;
+}
+
+.nut-tabs__titles-item__text {
+  line-height: 1.25;
+
+  .sub-title {
+    color: #a0a0a0;
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+}
+
+.nut-tabs__titles-item__line {
+  bottom: 5px;
+  background: #fa2c19!important;
+  border-radius: 5px;
+}
+
+.nut-tabs__titles.scrollable .nut-tabs__titles-item {
+  width: 20%;
+}
+
+// 出诊班表
+.clinic-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 6px;
+}

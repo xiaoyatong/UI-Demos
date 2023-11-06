@@ -1,0 +1,12 @@
+// 普通按钮的样式，入参: 宽，高，背景色，边框色，圆角，字号，字体颜色
+@mixin common-button($width: 36px, $height: 16px, $bgColor: #fff, $borderColor: #333, $raduis: 8px, $fontSize: 12px, $color: #333) {
+  width: $width;
+  height: $height;
+  background: $bgColor;
+  line-height: $height;
+  text-align: center;
+  color: $color;
+  border: 1px solid $borderColor;
+  border-radius: $raduis;
+  font-size: $fontSize;
+}

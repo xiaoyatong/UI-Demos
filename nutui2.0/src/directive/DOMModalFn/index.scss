@@ -1,0 +1,143 @@
+.common-modal {
+	position: relative;
+	&.hidden,
+	&.hidden_f5,
+	&.hidden_7a {
+		position: fixed;
+		z-index: 99999;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	&.hidden {
+		background: #7b7b7b;
+	}
+
+	&.hidden_f5 {
+		background: #f5f5f5;
+	}
+
+	&.hidden_7a {
+		background-color: #929292;
+	}
+
+	&__mask {
+		position: fixed;
+		background: rgba(0, 0, 0, 0.5);
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		// z-index: 99999;
+		z-index: 100000;
+		opacity: 0.50;
+		filter: alpha(opacity=50);
+	}
+
+	&__container {
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 100000;
+		min-width: 320px;
+		min-height: 150px;
+		background-color: #fff;
+		border-radius: 10px;
+
+		// overflow: hidden;
+		&.paddbottom {
+			padding-bottom: 44px;
+		}
+
+		&--close {
+			width: 30px;
+			height: 30px;
+			position: absolute;
+			bottom: -50px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		&--header {
+			font-family: PingFangSC-Regular;
+			font-size: 17px;
+			color: #2e2c2d;
+			text-align: center;
+			line-height: 24px;
+			// margin: 18px 4px 8.5px;
+			margin: 18px 4px;
+			padding: 0 12px;
+			font-weight: bold;
+		}
+
+		&--subTitle {
+			font-family: PingFangSC-Regular;
+			font-size: 14px;
+			color: #2e2c2d;
+			text-align: center;
+			line-height: 17px;
+			margin: 18px auto 8.5px;
+			padding: 0 12px;
+		}
+
+		&--content {
+			padding: 0 15px;
+			font-family: PingFangSC-Regular;
+			font-size: 12px;
+			color: #848484;
+			line-height: 18px;
+			min-height: auto;
+			margin-bottom: 12.5px;
+		}
+
+		&--footer {
+			display: flex;
+			height: 44px;
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			border-radius: 0 0 10px 10px;
+
+			&.two-btn {
+				.common-modal--btn {
+					&:first-child {
+						color: #f0250f;
+						background-color: #fff;
+						border-top: 0.5px solid #e6e6e6;
+						border-radius: 0 0 0 10px;
+					}
+
+					&:last-child {
+						color: #fff;
+						background: #ef260f;
+						border-top: 1px solid #ef260f;
+						border-radius: 0 0 10px 0;
+					}
+				}
+			}
+
+			.common-modal--btn {
+				flex: 1 1 50%;
+				text-align: center;
+				font-size: 16px;
+				line-height: 44px;
+				border-radius: 0 0 10px 10px;
+
+				&.btn__cancel {
+					color: #f0250f;
+					background-color: #fff;
+					border-top: 0.5px solid #e6e6e6;
+				}
+
+				&.btn__confirm {
+					color: #fff;
+					background: #ef260f;
+					border-top: 1px solid #ef260f;
+				}
+			}
+		}
+	}
+}

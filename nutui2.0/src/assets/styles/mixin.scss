@@ -1,0 +1,71 @@
+
+// 这种带url写法在Taro下编译不通过，会报错
+// @import url('button.scss');
+// @import url('flex.scss');
+// @import url('text-overflow.scss');
+
+@import './flex.scss';
+@import './button.scss';
+@import './text-overflow.scss';
+
+@mixin safeAreaMargin {
+  margin-bottom: if($taro-env =='weapp', constant(safe-area-inset-bottom) !important, calc(20px + constant(safe-area-inset-bottom)) !important);
+  /*兼容 IOS<11.2*/
+  margin-bottom: if($taro-env =='weapp', env(safe-area-inset-bottom) !important, calc(20px + env(safe-area-inset-bottom)) !important);
+  /*兼容 IOS>11.2*/
+}
+
+@mixin safeAreaPadding {
+  padding-bottom: if($taro-env =='weapp', constant(safe-area-inset-bottom) !important, calc(20px + constant(safe-area-inset-bottom)) !important);
+  /*兼容 IOS<11.2*/
+  // padding-bottom: env(safe-area-inset-bottom) !important;
+  padding-bottom: if($taro-env =='weapp', env(safe-area-inset-bottom) !important, calc(20px + env(safe-area-inset-bottom)) !important);
+}
+
+// 背景图
+@mixin bgImage($width, $height, $url, $size: 100%) {
+  width: $width;
+  height: $height;
+  background: url($url) no-repeat center;
+  background-size: $size;
+}
+// 绝对居中
+@mixin positionCenter{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+@mixin positionXCenter($top, $bottom: auto) {
+  position: absolute;
+  left: 50%;
+  top: $top;
+  bottom: $bottom;
+  transform: translateX(-50%);
+}
+@mixin positionYCenter($left: 0, $right: auto) {
+  position: absolute;
+  left: $left;
+  right: $right;
+  top: 50%;
+  transform: translateY(-50%);
+}
+// 按钮激活状态
+@mixin buttonActive {
+  position: relative;
+  &::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: -1rpx;
+    top: -1rpx;
+    background-color: #000;
+    border: inherit;
+    border-radius: inherit;
+    opacity: 0;
+  }
+  &:active::before {
+    opacity: .1;
+  }
+}

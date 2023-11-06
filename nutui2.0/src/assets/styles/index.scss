@@ -1,0 +1,125 @@
+@import './color.scss';
+@import './font-JDZhengHei.scss';
+@import './layout.scss';
+@import './mixin.scss';
+
+button {
+  padding: 0;
+  margin: 0;
+}
+
+.safeArea__margin {
+  // @include safeAreaMargin;
+}
+
+.safeArea__padding {
+  // @include safeAreaPadding;
+}
+
+.color__red {
+  color: #F0250F;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.block-radius10 {
+  border-radius: 10px;
+
+  >View {
+    border-radius: 10px;
+  }
+}
+
+
+.detail-null {
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.detail-null .null-pic {
+  display: block;
+  width: 98rpx;
+  height: 98rpx;
+  margin: 0 auto 14px;
+
+}
+
+.detail-null .null-text {
+  font-family: PingFangSC-Regular;
+  display: block;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #999999;
+  text-align: center;
+  white-space: nowrap;
+  /* line-height: 20px; */
+}
+
+.detail-null .red-text {
+  color: #848484;
+}
+
+.pro-info {
+  display: flex;
+  align-items: center;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+}
+
+.pro-info .pro-pic {
+  width: 148rpx;
+  height: 148rpx;
+  background: #f7f7f7 url(https://static.360buyimg.com/fe-design/superstore/images/common/dog.png) center no-repeat;
+  background-size: 62% auto;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pro-info .pro-desc {
+  position: relative;
+  flex: 1;
+}
+
+.pro-info .pro-desc .title {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  padding-left: 22rpx;
+  color: #333;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-family: PingFangSC-Medium;
+  line-height: 18px;
+  -webkit-line-clamp: 1;
+  margin-bottom: 5px;
+}
+
+.pro-info .pro-desc .desc {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  padding-left: 22rpx;
+  color: #333;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-family: PingFangSC-Regular;
+  line-height: 18px;
+  margin-bottom: 5px;
+  -webkit-line-clamp: 1;
+}
+
+// 自动切换门店的样式问题
+.auto-change-shop {
+  .btn__confirm {
+    background-color: #fff !important;
+    border-top: 1px solid #f7f7f7 !important;
+    color: #ef260f !important;
+  }
+}
