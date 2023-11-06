@@ -1,0 +1,17 @@
+@mixin text-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin text-line-overflow($clamp, $width: 100%) {
+  width: $width;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*! autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /*! autoprefixer: on */
+  -webkit-line-clamp: $clamp;
+  white-space: pre-wrap;
+}
