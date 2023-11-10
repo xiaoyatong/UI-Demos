@@ -5,7 +5,9 @@ import {
   PickerView,
   PickerViewColumn,
   Textarea as TTextArea,
+  Navigator,
 } from "@tarojs/components";
+
 import {
   Cell,
   Button,
@@ -24,10 +26,17 @@ import {
   VirtualList,
   Uploader,
   Collapse,
+  Elevator,
+  Range,
+  InfiniteLoading,
+  Picker,
+  CircleProgress,
+  Toast,
 } from "@nutui/nutui-react-taro";
 import { Download, Shop } from "@nutui/icons-react-taro";
 
 import "./index.scss";
+import Taro from "@tarojs/taro";
 
 function Index() {
   const src =
@@ -43,6 +52,12 @@ function Index() {
   const openSwitch1 = () => {
     setIsVisible1(true);
   };
+
+  console.log(
+    "cccc",
+    Taro.getSystemInfoSync(),
+    Taro.getSystemInfoSync().system.toLocaleLowerCase() === "ios"
+  );
 
   const closeSwitch1 = () => {
     setIsVisible1(false);
@@ -174,36 +189,382 @@ function Index() {
     borderRadius: "10px",
   };
 
-  const itemRender = (data, dataIndex) => {
+  const itemRender = (data: any, dataIndex: any) => {
     return <div>自定义11</div>;
   };
 
   const [show8, setShow8] = useState(false);
   const [visible, setVisible] = useState(false);
 
+  const dataList = [
+    {
+      title: "A",
+      list: [
+        {
+          name: "安徽",
+          id: 1,
+        },
+        {
+          name: "安徽",
+          id: 2,
+        },
+        {
+          name: "安徽",
+          id: 11,
+        },
+        {
+          name: "安徽",
+          id: 12,
+        },
+        {
+          name: "安徽",
+          id: 13,
+        },
+      ],
+    },
+    {
+      title: "B",
+      list: [
+        {
+          name: "北京",
+          id: 2,
+        },
+      ],
+    },
+    {
+      title: "G",
+      list: [
+        {
+          name: "广西",
+          id: 3,
+        },
+        {
+          name: "广东",
+          id: 4,
+        },
+      ],
+    },
+    {
+      title: "H",
+      list: [
+        {
+          name: "湖南",
+          id: 5,
+        },
+        {
+          name: "湖北",
+          id: 6,
+        },
+        {
+          name: "河南",
+          id: 7,
+        },
+        {
+          name: "湖南",
+          id: 51,
+        },
+        {
+          name: "湖北",
+          id: 62,
+        },
+        {
+          name: "河南",
+          id: 72,
+        },
+      ],
+    },
+  ];
+  const onItemClick = (key: string, item: any) => {
+    console.log(key, JSON.stringify(item));
+  };
+
+  const onIndexClick = (key: string) => {
+    console.log(key);
+  };
+
+  const InfiniteUlStyle = {
+    height: "500px",
+    width: "100%",
+    padding: "0",
+    overflowY: "auto",
+    overflowX: "hidden",
+  };
+
+  const InfiniteLiStyle = {
+    marginTop: "10px",
+    fontSize: "14px",
+    color: "rgba(100, 100, 100, 1)",
+    textAlign: "center",
+  };
+
+  const [defaultList, setDefaultList] = useState<string[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  const loadMore = (done: () => void) => {
+    setTimeout(() => {
+      const curLen = defaultList.length;
+      for (let i = curLen; i < curLen + 10; i++) {
+        defaultList.push(`${i}`);
+      }
+      if (defaultList.length >= 30) {
+        setHasMore(false);
+      } else {
+        setDefaultList([...defaultList]);
+      }
+      done();
+    }, 500);
+  };
+
+  const refresh = (done: () => void) => {
+    // setTimeout(() => {
+    //   Taro.showToast({
+    //     title: "刷新成功",
+    //     icon: "success",
+    //     duration: 2000,
+    //   });
+    //   done();
+    // }, 1000);
+  };
+
+  const init = () => {
+    for (let i = 0; i < 20; i++) {
+      defaultList.push(`${i}`);
+    }
+    setDefaultList([...defaultList]);
+  };
+  const [baseDesc, setBaseDesc] = useState("");
+  const listData1 = [
+    [
+      {
+        value: 1,
+        text: "南京市",
+      },
+      {
+        value: 2,
+        text: "无锡市",
+      },
+      {
+        value: 3,
+        text: "海北藏族自治区",
+      },
+      {
+        value: 4,
+        text: "北京市",
+      },
+      {
+        value: 5,
+        text: "连云港市",
+      },
+      {
+        value: 6,
+        text: "石家庄市",
+      },
+      {
+        value: 7,
+        text: "扬州市",
+      },
+      {
+        value: 8,
+        text: "大庆市",
+      },
+      {
+        value: 9,
+        text: "绥化市",
+      },
+      {
+        value: 10,
+        text: "潍坊市",
+      },
+      {
+        value: 11,
+        text: "徐州市",
+      },
+      {
+        value: 12,
+        text: "乌鲁木齐市",
+      },
+    ],
+  ];
+  const listData2 = [
+    // 第一列
+    [
+      { text: "周一", value: "Monday" },
+      { text: "周二", value: "Tuesday" },
+      { text: "周三", value: "Wednesday" },
+      { text: "周四", value: "Thursday" },
+      { text: "周五", value: "Friday" },
+    ],
+    // 第二列
+    [
+      { text: "上午", value: "Morning" },
+      { text: "下午", value: "Afternoon" },
+      { text: "晚上", value: "Evening" },
+    ],
+  ];
+  const [defaultValue, setDefaultValue] = useState([2]);
+  const [isVisible2, setIsVisible2] = useState(false);
+  // 切换选择项
+  const changePicker = (options: any[], values: any, columnIndex: number) => {
+    console.log("picker onChange", columnIndex, values, options);
+  };
+  // 确定选择
+  const confirmPicker = (
+    type: string,
+    options: any[],
+    values: (string | number)[]
+  ) => {
+    console.log("picker选择确定", values, options);
+    let description = "";
+    options.forEach((option: any) => {
+      description += ` ${option.text}`;
+    });
+    if (type === "base") {
+      setBaseDesc(description);
+    }
+  };
+
   return (
     <View className="nutui-react-demo">
+      <Toast id="test" />
+      <Cell
+        title="函数调用"
+        onClick={(event: React.MouseEvent) => {
+          Toast.show("test", {
+            title: "函数调用",
+            msg: `Let's try ABCDEFGHIJKABCDEFGHIJKLMN here.`,
+            type: "fail",
+            duration: 3,
+            position: "center",
+            size: "large",
+            lockScroll: true,
+            onClose: () => {
+              console.log("close");
+            },
+          });
+        }}
+      />
       <View className="index">
         欢迎使用 NutUI React 开发 Taro 多端项目。
         <Download />
       </View>
+      <Cell>
+        <Navigator url="/pages/circleprogress/index">打开CircelDemo</Navigator>
+      </Cell>
       <SearchBar placeholder="上京东，购好物" />
       <Button onClick={() => setVisible(true)}> 打开设置</Button>
+      <Button
+        onClick={() =>
+          Taro.chooseMedia({
+            count: 9,
+            mediaType: ["image", "video"],
+            sourceType: ["album", "camera"],
+            maxDuration: 30,
+            camera: "back",
+            success: (res) => {
+              console.log(res.tempFiles);
+              console.log(res.type);
+            },
+            fail: (e) => {
+              console.log("failed", e);
+            },
+          })
+        }
+      >
+        {" "}
+        使用Taro上传视频
+      </Button>
+      <Cell
+        title="请选择城市"
+        description={baseDesc}
+        onClick={() => setIsVisible2(!isVisible2)}
+      />
+      <Picker
+        title="请选择城市"
+        visible={isVisible1}
+        options={listData1}
+        defaultValue={defaultValue}
+        onConfirm={(list, values) => confirmPicker("base", list, values)}
+        onClose={() => setIsVisible1(false)}
+        onChange={changePicker}
+      />
 
-      <Dialog title="设备信息" visible={visible} footer={null}>
+      <Picker
+        visible={isVisible2}
+        options={listData2}
+        onClose={() => setIsVisible2(false)}
+        defaultValue={["Wednesday"]}
+        onChange={changePicker}
+        onConfirm={(list, values) => confirmPicker("mutil", list, values)}
+      />
+
+      <Button onClick={() => setShow8(true)}> 选择日期</Button>
+
+      <Cell>
+        <ul id="scrollDemo" style={InfiniteUlStyle}>
+          <InfiniteLoading
+            pullingText={
+              <>
+                <span style={{ fontSize: "10px" }}>松开刷新</span>
+              </>
+            }
+            loadingText="加载中···"
+            loadMoreText="没有啦～"
+            pullRefresh
+            target="scrollDemo"
+            hasMore={hasMore}
+            onLoadMore={loadMore}
+            onRefresh={refresh}
+          >
+            {defaultList.map((item, index) => {
+              return (
+                <li key={index} style={InfiniteLiStyle}>
+                  {item}
+                </li>
+              );
+            })}
+          </InfiniteLoading>
+        </ul>
+      </Cell>
+
+      {/* <Dialog title="设备信息" visible={visible} footer={null}>
         <Button onClick={() => setShow8(true)}> 选择日期</Button>
         <Button onClick={() => setVisible(false)}>关闭dialog</Button>
-      </Dialog>
+      </Dialog> */}
 
+      <Cell>
+        <Range defaultValue={40} />
+      </Cell>
+
+      <Cell>
+        <Elevator
+          list={dataList}
+          height="260"
+          onItemClick={(key: string, item: any) => onItemClick(key, item)}
+          onIndexClick={(key: string) => onIndexClick(key)}
+        />
+      </Cell>
+      {/* 
       <DatePicker
         title="时分选择"
         type="hour-minutes"
         visible={show8}
         showChinese={true}
         onClose={() => setShow8(false)}
-        onConfirm={(options, values) =>
+        onConfirm={(options: any, values: any) =>
           console.log("values", values, "options", options)
         }
+      /> */}
+
+      <DatePicker
+        visible={show8}
+        type="datetime"
+        value={new Date("2023-11-01")}
+        onClose={() => setShow8(false)}
+        onConfirm={(_, values) => console.log(values)}
       />
 
       {/* <NoticeBar
@@ -252,6 +613,10 @@ function Index() {
 
         <Menu>
           <Menu.Item options={options} value={0} columns={2} />
+        </Menu>
+        <Menu>
+          <Menu.Item title="时间"></Menu.Item>
+          <Menu.Item title="排序"></Menu.Item>
         </Menu>
 
         <Swipe
@@ -361,16 +726,21 @@ function Index() {
               marginRight: "10px",
               marginBottom: "10px",
             }}
-            onStart={(res) => {
+            onStart={(res: any) => {
               console.log("start", res);
             }}
-            onSuccess={(res) => {
-              console.log("res1111", res);
+            onSuccess={(res: any) => {
+              console.log(
+                "res1111",
+                res.files[0],
+                res.files[0].thumbTempFilePath
+              );
             }}
             uploadLabel="商品主图"
-            // mediaType={['image']}
+            mediaType={["image", "video"]}
             multiple={true}
             maxCount={10}
+            previewUrl=""
           />
           <Uploader uploadLabel="商品主图-视频图片" />
         </Cell>
@@ -390,14 +760,14 @@ function Index() {
         </Cell>
 
         <Cell>
-          <VirtualList itemHeight={66} list={list} itemRender={itemRender} />
+          {/* <VirtualList itemHeight={66} list={list} itemRender={itemRender} /> */}
         </Cell>
 
         <TextArea rows={1} autoSize />
         <TextArea
           value={value}
           autoSize
-          onChange={(value) => setValue(value)}
+          onChange={(value: any) => setValue(value)}
         />
         <Cell>
           <TTextArea
@@ -462,7 +832,7 @@ function Index() {
             打开 日历
           </Button>
         </Cell>
-        <Calendar
+        {/* <Calendar
           visible={isVisible1}
           defaultValue={date1}
           type="range"
@@ -470,7 +840,7 @@ function Index() {
           endDate="2021-01-08"
           onClose={closeSwitch1}
           onConfirm={setChooseValue1}
-        />
+        /> */}
         <Cell>
           <Button type="primary" className="btn" onClick={showFn0}>
             打开 图片预览
