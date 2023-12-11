@@ -1,0 +1,245 @@
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { View } from "@tarojs/components";
+import "./index.scss";
+import { Uploader } from "@nutui/nutui-react-taro";
+import { FileItem } from "@nutui/nutui-react-taro/dist/types/packages/uploader/file-item";
+import Taro from "@tarojs/taro";
+
+const Index = (): JSX.Element => {
+  const uploadUrl = "";
+  const [dashboardFileList, setDashboardFileList] = useState<any>([]);
+  const [handoverFileList, setHandoverFileList] = useState<any>([]);
+  const [licensePlateFileList, setLicensePlateFileList] = useState<any>([]);
+
+  const onChangeDashboard = (res) => {
+    const mapList = res.map((item) => {
+      return {
+        name: "仪表盘照片",
+        url: item?.path,
+        path: item?.path,
+        status: "success",
+        message: "上传成功",
+        type: "image",
+      };
+    });
+    setDashboardFileList(mapList);
+  };
+  const onChangeHandover = (res) => {
+    console.log("onChange 触发", res);
+    if (res[0] && res[0].url) {
+      const mapList = res.map((item) => {
+        return {
+          name: "取车视频",
+          url: item?.url,
+          pathUrl: item?.path,
+          path: item?.path,
+          status: "success",
+          message: "上传成功",
+          type: "image",
+        };
+      });
+      setHandoverFileList(mapList);
+    }
+  };
+  const onChangeLicensePlate = (res) => {
+    const mapList = res.map((item) => {
+      return {
+        name: "车牌照片",
+        url: item?.path,
+        path: item?.path,
+        status: "success",
+        message: "上传成功",
+        type: "image",
+      };
+    });
+    setLicensePlateFileList(mapList);
+  };
+  const uploadDashboardRef = useRef(null);
+  const uploadHandoverRef = useRef(null);
+  const uploadLicensePlateRef = useRef(null);
+
+  //图片预览
+  const previewImage = (file, fileList) => {
+    Taro.previewImage({
+      current: file.path, // 当前显示图片的http链接
+      urls: fileList.map((item) => {
+        return item.path;
+      }), // 需要预览的图片http链接列表
+      success: async () => {},
+      complete: (res) => {},
+      fail: (res) => {},
+    });
+  };
+  const onFileDashboardItemClick = (file: FileItem, index: number) => {
+    previewImage(file, dashboardFileList);
+  };
+
+  const loadMedia = (file) => {
+    const dataUrl = URL.createObjectURL(file);
+    const res = {
+      tempFilePath: dataUrl,
+      size: file.size,
+      duration: 0,
+      height: 0,
+      width: 0,
+      thumbTempFilePath: "",
+      fileType: file.type,
+      originalFileObj: file,
+    };
+    if (/^video\//.test(res.fileType)) {
+      // Video
+      const video = document.createElement("video");
+      const reader = new FileReader();
+      video.crossOrigin = "Anonymous";
+      video.preload = "metadata";
+      video.src = res.tempFilePath;
+      return new Promise((resolve, reject) => {
+        // 对齐旧版本实现
+        reader.onload = (event) => {
+          var _a;
+          res.tempFilePath =
+            (_a = event.target) === null || _a === void 0 ? void 0 : _a.result;
+          resolve(res);
+        };
+        reader.onerror = (e) => reject(e);
+        reader.readAsDataURL(res.originalFileObj);
+        video.onloadedmetadata = () => {
+          res.duration = video.duration;
+          res.height = video.videoHeight;
+          res.width = video.videoWidth;
+          // resolve(res);
+        };
+        video.oncanplay = () => {
+          res.thumbTempFilePath = getThumbTempFilePath(
+            video,
+            res.height,
+            res.width,
+            0.8
+          );
+          console.log("oncanplay", res.thumbTempFilePath);
+          resolve(res);
+        };
+        video.onerror = (e) => reject(e);
+      });
+    }
+  };
+  const getThumbTempFilePath = (
+    el,
+    height = 0,
+    width = height,
+    quality = 0.8
+  ) => {
+    const max = 256;
+    const canvas = document.createElement("canvas");
+    if (height > max || width > max) {
+      const radio = height / width;
+      if (radio > 1) {
+        height = max;
+        width = height / radio;
+      } else {
+        width = max;
+        height = width * radio;
+      }
+    }
+    canvas.height = height;
+    canvas.width = width;
+    const ctx = canvas.getContext("2d");
+    ctx === null || ctx === void 0
+      ? void 0
+      : ctx.drawImage(el, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL("image/jpeg", quality);
+  };
+  return (
+    <View className="vehicleCollectionInformation">
+      <View className="card-list">
+        <View className="media-list">
+          <Uploader
+            multiple={true}
+            mediaType={["image"]}
+            ref={uploadDashboardRef}
+            url={uploadUrl}
+            value={dashboardFileList}
+            onChange={onChangeDashboard}
+            onFileItemClick={onFileDashboardItemClick}
+          />
+        </View>
+      </View>
+
+      <View className="card-list">
+        <View className="media-list">
+          <View
+            id="mediaId"
+            onClick={() => {
+              const targetNode = document.querySelector("body");
+              const observerOptions = {
+                childList: true,
+                attributes: true,
+                subtree: true, // 子树中的所有节点
+              };
+              const observer = new MutationObserver(
+                (mutationsList, observer) => {
+                  for (let mutation of mutationsList) {
+                    const videoUpload =
+                      document.getElementById("taroChooseMedia");
+                    if (videoUpload) {
+                      videoUpload.addEventListener("change", function () {
+                        var filec = videoUpload?.files[0];
+                        console.log("===>", filec);
+                        if (filec) {
+                          //文件已经选择好 下面可以写自己的上传代码了
+                          loadMedia(filec)?.then((res) => {
+                            const ress: any = res;
+                            console.log(ress, "<==loadMediares");
+                            console.log(
+                              ress?.thumbTempFilePath,
+                              "<==loadMediares2"
+                            );
+                            onChangeHandover([
+                              {
+                                path: ress?.thumbTempFilePath,
+                                url: ress?.tempFilePath,
+                              },
+                            ]);
+                          });
+                        }
+                      });
+                    }
+                  }
+                }
+              );
+              targetNode && observer.observe(targetNode, observerOptions);
+            }}
+          >
+            <Uploader
+              multiple={true}
+              mediaType={["video"]}
+              ref={uploadHandoverRef}
+              url={uploadUrl}
+              value={handoverFileList}
+              onChange={onChangeHandover}
+            />
+          </View>
+        </View>
+      </View>
+
+      <View className="card-list">
+        <View className="card-item card-item-title">
+          <View>车牌照片上传</View>
+          <View className="card-item-details"></View>
+        </View>
+        <View className="media-list">
+          <Uploader
+            multiple={true}
+            mediaType={["image"]}
+            ref={uploadLicensePlateRef}
+            url={uploadUrl}
+            value={licensePlateFileList}
+            onChange={onChangeLicensePlate}
+          />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default Index;
