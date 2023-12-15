@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Taro from "@tarojs/taro";
 import {
-  Left,
+  ArrowLeft,
   Photograph,
   ArrowDown,
   More,
@@ -123,7 +123,7 @@ const SearchBarDemo = () => {
         <SearchBar
           left={
             <>
-              <Left width={20} height={20} />
+              <ArrowLeft width={20} height={20} />
               <Close width={20} height={20} />
             </>
           }

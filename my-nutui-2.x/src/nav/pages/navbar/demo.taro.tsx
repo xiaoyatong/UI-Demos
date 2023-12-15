@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Taro from "@tarojs/taro";
-import { Share, More, Cart, Left, Close } from "@nutui/icons-react-taro";
+import { Share, More, Cart, ArrowLeft, Close } from "@nutui/icons-react-taro";
 import { useTranslate } from "../../../../assets/locale/taro";
 import { NavBar, Tabs, TabPane } from "@nutui/nutui-react-taro";
 import Header from "../../../../assets/components/header";
@@ -59,7 +59,7 @@ const NavBarDemo = () => {
         <NavBar
           back={
             <>
-              <Left name="left" color="#979797" />
+              <ArrowLeft size={14} />
               {translated.a74a1fd4}
             </>
           }
@@ -87,7 +87,7 @@ const NavBarDemo = () => {
             </span>
           }
           left={<Close size={14} />}
-          back={<Left name="left" color="#979797" />}
+          back={<ArrowLeft size={14} name="left" />}
           onBackClick={(e) => Taro.showToast({ title: translated.a74a1fd4 })}
         >
           <div className="title">
@@ -100,7 +100,7 @@ const NavBarDemo = () => {
           </div>
         </NavBar>
         <NavBar
-          back={<Left name="left" color="#979797" />}
+          back={<ArrowLeft size={14} name="left" />}
           right={
             <>
               <span
@@ -132,7 +132,7 @@ const NavBarDemo = () => {
         </NavBar>
 
         <NavBar
-          back={<Left size={20} name="left" color="#979797" />}
+          back={<ArrowLeft size={20} name="left" />}
           right={
             <>
               <span
@@ -168,7 +168,7 @@ const NavBarDemo = () => {
           titleAlign="left"
           back={
             <>
-              <Left name="left" color="#979797" />
+              <ArrowLeft name="left" />
               {translated.a74a1fd4}
             </>
           }
@@ -197,7 +197,7 @@ const NavBarDemo = () => {
             </span>
           }
           left={<Close size={14} />}
-          back={<Left name="left" color="#979797" />}
+          back={<ArrowLeft name="left" />}
           onBackClick={(e) => Taro.showToast({ title: translated.a74a1fd4 })}
         >
           <div className="title">
@@ -211,7 +211,7 @@ const NavBarDemo = () => {
         </NavBar>
         <NavBar
           titleAlign="left"
-          back={<Left name="left" color="#979797" />}
+          back={<ArrowLeft name="left" />}
           right={
             <>
               <span
@@ -243,7 +243,7 @@ const NavBarDemo = () => {
         </NavBar>
         <NavBar
           titleAlign="left"
-          back={<Left size={20} name="left" color="#979797" />}
+          back={<ArrowLeft size={20} name="left" />}
           right={
             <>
               <span

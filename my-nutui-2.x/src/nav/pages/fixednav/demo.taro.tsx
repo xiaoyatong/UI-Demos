@@ -45,8 +45,8 @@ const FixedNavDemo = () => {
     },
     "en-US": {
       title1: "Basic usage",
-      title2: "Left collapsed",
-      title3: "Left expansion",
+      title2: "ArrowLeft collapsed",
+      title3: "ArrowLeft expansion",
       title4: "Custom On",
       title5: "Custom Off",
       title6: "Support drag and drop",

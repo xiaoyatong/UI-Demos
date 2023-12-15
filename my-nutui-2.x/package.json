@@ -55,8 +55,8 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-refresh": "^0.11.0",
-    "@nutui/nutui-react-taro": "2.2.0",
-    "@nutui/icons-react-taro": "0.0.4",
+    "@nutui/nutui-react-taro": "2.3.0",
+    "@nutui/icons-react-taro": "0.0.5",
     "sard": "1.0.0-canary.1.1",
     "vconsole": "3.15.1"
   },

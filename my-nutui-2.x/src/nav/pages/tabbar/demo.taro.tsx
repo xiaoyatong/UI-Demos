@@ -1,6 +1,6 @@
 import React from "react";
 import Taro from "@tarojs/taro";
-import { Cart, Category, Find, Home, My } from "@nutui/icons-react-taro";
+import { Cart, Category, Find, Home, User } from "@nutui/icons-react-taro";
 import { Tabbar } from "@nutui/nutui-react-taro";
 import { useTranslate } from "../../../../assets/locale/taro";
 import Header from "../../../../assets/components/header";
@@ -97,7 +97,7 @@ const TabbarDemo = () => {
             title={translated["7db1a8b2"]}
             icon={<Cart size={18} />}
           />
-          <Tabbar.Item title={translated.e51e4582} icon={<My size={18} />} />
+          <Tabbar.Item title={translated.e51e4582} icon={<User size={18} />} />
         </Tabbar>
 
         <h2>{translated.c38a08ef}</h2>
@@ -120,7 +120,7 @@ const TabbarDemo = () => {
           />
           <Tabbar.Item
             title={translated.e51e4582}
-            icon={<My width={20} height={20} />}
+            icon={<User width={20} height={20} />}
           />
         </Tabbar>
 
@@ -137,7 +137,7 @@ const TabbarDemo = () => {
             title={translated["7db1a8b2"]}
             icon={<Cart size={12} />}
           />
-          <Tabbar.Item title={translated.e51e4582} icon={<My size={12} />} />
+          <Tabbar.Item title={translated.e51e4582} icon={<User size={12} />} />
         </Tabbar>
 
         <h2>{translated.ce5c5440}</h2>
@@ -165,7 +165,7 @@ const TabbarDemo = () => {
           />
           <Tabbar.Item
             title={translated.e51e4582}
-            icon={<My width={20} height={20} />}
+            icon={<User width={20} height={20} />}
           />
         </Tabbar>
 
@@ -191,7 +191,7 @@ const TabbarDemo = () => {
           />
           <Tabbar.Item
             title={translated.e51e4582}
-            icon={<My width={20} height={20} />}
+            icon={<User width={20} height={20} />}
           />
         </Tabbar>
 
@@ -215,7 +215,7 @@ const TabbarDemo = () => {
           />
           <Tabbar.Item
             title={translated.e51e4582}
-            icon={<My width={20} height={20} />}
+            icon={<User width={20} height={20} />}
           />
         </Tabbar>
 
@@ -246,7 +246,7 @@ const TabbarDemo = () => {
           />
           <Tabbar.Item
             title={translated.e51e4582}
-            icon={<My width={20} height={20} />}
+            icon={<User width={20} height={20} />}
           />
         </Tabbar>
       </div>
