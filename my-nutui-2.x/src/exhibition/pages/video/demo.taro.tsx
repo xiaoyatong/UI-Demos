@@ -3,6 +3,7 @@ import Taro from "@tarojs/taro";
 import { useTranslate } from "../../../../assets/locale/taro";
 import { Cell, Button, Video } from "@nutui/nutui-react-taro";
 import Header from "../../../../assets/components/header";
+import { Swiper, SwiperSlide } from "swiper/react";
 import "./demo.scss";
 
 interface T {
@@ -126,14 +127,23 @@ const VideoDemo = () => {
         </Cell>
         <h2>{translated.fcdac2ed}</h2>
         <Cell className="video-cell">
-          <Video
-            source={source}
-            options={options3}
-            onPlay={play}
-            onPause={pause}
-            onPlayEnd={playend}
-            style={{ height: "163px" }}
-          />
+          <Swiper
+            styles={{ width: "100%" }}
+            onSliderMove={(e) => {
+              console.log("e", e);
+            }}
+          >
+            <SwiperSlide>
+              <Video
+                source={source}
+                options={options3}
+                onPlay={play}
+                onPause={pause}
+                onPlayEnd={playend}
+                style={{ height: "163px" }}
+              />
+            </SwiperSlide>
+          </Swiper>
         </Cell>
         <h2>{translated["200baa8c"]}</h2>
         <Cell className="video-cell">

@@ -86,9 +86,10 @@ const EllipsisDemo = () => {
           <Ellipsis
             content={content}
             direction="end"
-            rows="3"
+            rows="7"
             expandText={translated.expand}
             collapseText={translated.collapse}
+            width="100"
           />
         </Cell>
         <h2>{translated.width}</h2>
